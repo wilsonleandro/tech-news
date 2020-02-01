@@ -7,13 +7,11 @@ import br.com.alura.technews.repository.NoticiaRepository
 import br.com.alura.technews.repository.Resource
 
 class VisualizaNoticiaViewModel(
-    private val noticiaId: Long,
+    noticiaId: Long,
     private val repository: NoticiaRepository
 ) : ViewModel() {
 
-    private val noticiaEncontrada = buscaPorId()
-
-    fun buscaPorId() = repository.buscaPorId(noticiaId)
+    val noticiaEncontrada = repository.buscaPorId(noticiaId)
 
     fun remove(): LiveData<Resource<Void?>> {
         return noticiaEncontrada.value?.run {

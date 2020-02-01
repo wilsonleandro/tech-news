@@ -31,17 +31,12 @@ class VisualizaNoticiaActivity : AppCompatActivity() {
         val factory = VisualizaNoticiaViewModelFactory(noticiaId, repository)
         ViewModelProviders.of(this, factory).get(VisualizaNoticiaViewModel::class.java)
     }
-    private lateinit var noticia: Noticia
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_visualiza_noticia)
         title = TITULO_APPBAR
         verificaIdDaNoticia()
-    }
-
-    override fun onResume() {
-        super.onResume()
         buscaNoticiaSelecionada()
     }
 
@@ -59,7 +54,7 @@ class VisualizaNoticiaActivity : AppCompatActivity() {
     }
 
     private fun buscaNoticiaSelecionada() {
-        viewModel.buscaPorId().observe(this, Observer { noticiaEncontrada ->
+        viewModel.noticiaEncontrada.observe(this, Observer { noticiaEncontrada ->
             noticiaEncontrada?.let {
                 preencheCampos(it)
             }
